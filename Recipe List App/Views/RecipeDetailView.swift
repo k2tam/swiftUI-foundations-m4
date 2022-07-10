@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     var recipe:Recipe
+    @State var servingSize:Int = 2
     
     var body: some View {
         ScrollView{
@@ -17,21 +18,49 @@ struct RecipeDetailView: View {
                 //MARK: Recipe Image
                 Image(recipe.image).resizable().scaledToFill()
                 
+                //MARK: Recipe detail title
+                Text(recipe.name)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
+                    
+            
+                //MARK: Recipe serving size picker
+                VStack(){
+                    Text("Select your serving size")
+                    
+                    Picker("", selection: $servingSize) {
+                        Text("2").tag(2)
+                        Text("4").tag(4)
+                        Text("6").tag(6)
+                        Text("8").tag(8)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width: 160)
+                    
+                    
+                }
+                
+                
+                
                 //MARK: Recipe Ingredients
                 VStack(alignment: .leading){
                     Text("Ingredients")
                         .font(.title)
                         .padding(.bottom, 4.0)
                     
-                    ForEach(recipe.ingredients, id: \.self){ingredient in
+                    ForEach(recipe.ingredients){ingredient in
                         
-                        Text("•" + ingredient)
+                        Text("•" + RecipeModel.getPortion(ingredient: ingredient, recipeServings: recipe.servings, targetServings: servingSize) + " " + ingredient.name.lowercased())
                             .padding(.bottom, 2.0)
+                        
                     }
                 }
                 .padding(.horizontal)
                 
                 Divider()
+                
                 
                 //MARK: Recipe Directions
                 VStack(alignment: .leading, spacing: 15.0){
