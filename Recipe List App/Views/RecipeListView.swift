@@ -16,7 +16,7 @@ struct RecipeListView: View {
         NavigationView {
             VStack(alignment: .leading){
                 Text("All recipes")
-                    .font(.largeTitle)
+                    .font(Font.custom("Avenir Heavy", size: 30))
                     .fontWeight(.bold)
                     .padding(.top, 30)
                 

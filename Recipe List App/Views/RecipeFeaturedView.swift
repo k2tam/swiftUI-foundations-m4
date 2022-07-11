@@ -15,7 +15,7 @@ struct RecipeFeaturedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             Text("Featured recipes")
-                .font(.largeTitle)
+                .font(Font.custom("Avenir Heavy", size: 30))
                 .fontWeight(.bold)
                 .padding(.leading)
                 .padding(.top, 30)
